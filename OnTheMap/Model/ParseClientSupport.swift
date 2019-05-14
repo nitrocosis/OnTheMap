@@ -10,7 +10,7 @@ import Foundation
 import MapKit
 
 extension ParseClient {
-    func getStudentLocation (completion: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
+    func getStudentLocations (completion: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
         
         taskForGetLocations(ParseConstants.Methods.StudentLocations, url: URL(string: ParseConstants.URLConstants.BaseURL + ParseConstants.Methods.StudentLocations)!) { (results, error) in
             
@@ -44,24 +44,26 @@ extension ParseClient {
         
     }
     
-    func putStudentLocation (_ method: String, url: URL, jsonBody: [String:AnyObject], completion: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void){
-        
-        let parameters = [ParseConstants.Methods.StudentLocations]
-        let put = taskForPutLocation(method, url: URL(string: ParseConstants.URLConstants.BaseURL + ParseConstants.Methods.StudentLocations)!, jsonBody: (jsonBody as AnyObject) as! [AnyObject]) { (results, error) in
-            
-            var request = URLRequest(url: URL(string: ParseConstants.URLConstants.BaseURL + ParseConstants.Methods.StudentLocations)!)
-            if let error = error {
-                completion(nil, error)
-            } else {
-                
-                if let results = results?[ParseConstants.JSONResponseKeys.requestToken] as? [[String:AnyObject]] {
-                    completion(results as AnyObject, nil)
-                } else {
-                    completion(nil, NSError(domain: "getStudentLocations", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse student data"]))
-                }
-            }
+    func sendError(_ errorString: String, _ domain: String, _ completion: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
+        let userInfo = [NSLocalizedDescriptionKey : errorString]
+        completion(nil, NSError(domain: domain, code: 1, userInfo: userInfo))
+    }
+    
+    func sendErrorForHttpStatusCode(_ httpStatusCode: Int, _ domain: String, _ completion: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
+        switch(httpStatusCode) {
+        case 400: // BadRequest
+            sendError("Bad request, please try again", domain, completion)
+        case 401: // Invalid Credentials
+            sendError("Invalid Credentials, please try again", domain, completion)
+        case 403: // Invalid Credentials
+            sendError("Unauthorized, please try again", domain, completion)
+        case 410: // URL Changed
+            sendError("URL changed, please try again", domain, completion)
+        case 500: // URL Changed
+            sendError("Server error, please try again later", domain, completion)
+        default:
+            sendError("Something went wrong, please try again", domain, completion)
         }
-        
     }
 }
 

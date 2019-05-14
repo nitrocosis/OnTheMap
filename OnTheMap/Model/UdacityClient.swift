@@ -25,15 +25,11 @@ class UdacityClient {
             }
             
             guard let httpStatusCode = (response as? HTTPURLResponse)?.statusCode else {
-                // Since there is no HTTP StatusCode (which will bnever happen). Adding it just to safely
-                // unwrap the StatusCode
                 self.sendError("Something went wrong, please try again", "taskForGet", completion)
                 return
             }
             
             if httpStatusCode >= 200 && httpStatusCode < 300 {
-                // Since Status Code is valid. Process Data here only.
-                // This is syntax to create Range in Swift 5
                 let newData = data?.subdata(in: 5..<data!.count)
                 if let json = try? JSONSerialization.jsonObject(with: newData!, options: []),
                     let dict = json as? [String:Any],
@@ -54,7 +50,6 @@ class UdacityClient {
     }
     
     //MARK: Post
-    
     func taskForPost(url: URL, username: String, password: String, completion: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
         
         let url = URL(string: UdacityConstants.URLConstants.PublicUserURL)
@@ -71,15 +66,11 @@ class UdacityClient {
             }
             
             guard let httpStatusCode = (response as? HTTPURLResponse)?.statusCode else {
-                // Since there is no HTTP StatusCode (which will bnever happen). Adding it just to safely
-                // unwrap the StatusCode
                 self.sendError("Something went wrong, please try again", "taskForPost", completion)
                 return
             }
             
             if httpStatusCode >= 200 && httpStatusCode < 300 {
-                // Since Status Code is valid. Process Data here only.
-                // This is syntax to create Range in Swift 5
                 let range = 5..<data!.count
                 let newData = data?.subdata(in: range) /* subset response data! */
                 // Continue processing the data and deserialize it
@@ -126,18 +117,13 @@ class UdacityClient {
             }
             
             guard let httpStatusCode = (response as? HTTPURLResponse)?.statusCode else {
-                // Since there is no HTTP StatusCode (which will bnever happen). Adding it just to safely
-                // unwrap the StatusCode
                 self.sendError("Something went wrong, please try again", "taskForDelete", completion)
                 return
             }
             
             if httpStatusCode >= 200 && httpStatusCode < 300 {
-                // Since Status Code is valid. Process Data here only.
-                // This is syntax to create Range in Swift 5
                 let range = 5..<data!.count
                 let newData = data?.subdata(in: range) /* subset response data! */
-                // Continue processing the data and deserialize it
                 completion(String(data: newData!, encoding: .utf8) as AnyObject, nil)
             }
             else{

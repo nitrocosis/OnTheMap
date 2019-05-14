@@ -24,7 +24,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func getAnnotations() {
-        ParseClient.sharedInstance().getStudentLocation { (result, error) in
+        ParseClient.sharedInstance().getStudentLocations { (result, error) in
             StudentArray.sharedInstance.studentArray =  Student.studentInfo(result as! [[String : AnyObject]])
             for student in StudentArray.sharedInstance.studentArray {
                 
@@ -63,7 +63,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        ParseClient.sharedInstance().getStudentLocation { (result, error) in
+        ParseClient.sharedInstance().getStudentLocations { (result, error) in
             print(result ?? "")
         }
     }
