@@ -72,6 +72,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         UdacityClient.sharedInstance().deleteSession { (success, error) in
             if (error != nil) {
                 self.displayError(error?.userInfo.description)
+                return
             } else {
                 DispatchQueue.main.async {
                     // Close all open VCs

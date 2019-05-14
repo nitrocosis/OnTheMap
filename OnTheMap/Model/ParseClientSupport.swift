@@ -12,7 +12,7 @@ import MapKit
 extension ParseClient {
     func getStudentLocation (completion: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
         
-        taskForGetLocations(ParseConstants.Methods.StudentLocations, url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!) { (results, error) in
+        taskForGetLocations(ParseConstants.Methods.StudentLocations, url: URL(string: ParseConstants.URLConstants.BaseURL + ParseConstants.Methods.StudentLocations)!) { (results, error) in
             
             if let error = error {
                 completion(nil, error)
@@ -47,9 +47,9 @@ extension ParseClient {
     func putStudentLocation (_ method: String, url: URL, jsonBody: [String:AnyObject], completion: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void){
         
         let parameters = [ParseConstants.Methods.StudentLocations]
-        let put = taskForPutLocation(method, url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!, jsonBody: (jsonBody as AnyObject) as! [AnyObject]) { (results, error) in
+        let put = taskForPutLocation(method, url: URL(string: ParseConstants.URLConstants.BaseURL + ParseConstants.Methods.StudentLocations)!, jsonBody: (jsonBody as AnyObject) as! [AnyObject]) { (results, error) in
             
-            var request = URLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
+            var request = URLRequest(url: URL(string: ParseConstants.URLConstants.BaseURL + ParseConstants.Methods.StudentLocations)!)
             if let error = error {
                 completion(nil, error)
             } else {

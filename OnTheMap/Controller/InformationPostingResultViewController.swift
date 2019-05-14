@@ -35,6 +35,7 @@ class InformationPostingResultViewController: UIViewController, MKMapViewDelegat
         UdacityClient.sharedInstance().getUserData() { (userOptional, error) in
             if (error != nil) {
                 self.displayError(error?.userInfo.description)
+                return
             } else {
                 let user = userOptional as! User
                 print("Got user data: \(user.firstName) \(user.lastName)")

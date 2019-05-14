@@ -43,6 +43,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate {
         
         if locationTextField.text!.isEmpty || detailsTextField.text!.isEmpty {
             self.displayError("Please enter your location and details")
+            return
         }
         getLocation() { (result, error) in
             if (result != nil) {
