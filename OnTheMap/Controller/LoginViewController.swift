@@ -17,7 +17,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signupLabel: UILabel!
-    @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var appDelegate: AppDelegate!
     
@@ -59,14 +59,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func loginButton(_ sender: AnyObject) {
+        self.activityIndicator.startAnimating()
         if emailTextField.text!.isEmpty || passwordTextField.text!.isEmpty {
             displayError("Please input your email and password")
         }
         UdacityClient.sharedInstance().loginUser(username: emailTextField.text ?? "", password: passwordTextField.text ?? "") { (success, errorString) in
-            
             DispatchQueue.main.async {
                 if (success != nil) {
-                        self.login()
+                    self.login()
+                    self.activityIndicator.stopAnimating()
                 } else {
                     self.reloadInputViews()
                     self.displayError(errorString?.userInfo.description)
@@ -95,3 +96,4 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
 }
+

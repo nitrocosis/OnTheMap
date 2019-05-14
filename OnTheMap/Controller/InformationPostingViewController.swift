@@ -14,6 +14,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var detailsTextField: UITextField!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var resultAnnotation: MKPointAnnotation?
     
@@ -40,7 +41,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func submitButton(_ sender: UIButton) {
         
-        
+        self.activityIndicator.startAnimating()
         if locationTextField.text!.isEmpty || detailsTextField.text!.isEmpty {
             self.displayError("Please enter your location and details")
             return
@@ -50,7 +51,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate {
                 self.resultAnnotation = result
                 self.resultAnnotation?.title = self.locationTextField.text
                 self.resultAnnotation?.subtitle = self.detailsTextField.text
-                
+                self.activityIndicator.stopAnimating()
                 let controller = self.storyboard!.instantiateViewController(withIdentifier: "InformationPostingResultViewController")
                 self.performSegue(withIdentifier: "InformationPostingResultViewController", sender: nil)
                 self.present(controller, animated: true, completion: nil)
@@ -108,5 +109,6 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate {
     }
     
 }
+
 
 
