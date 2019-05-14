@@ -22,12 +22,6 @@ class TableViewController: UITableViewController {
         return StudentArray.sharedInstance.studentArray.count
     }
     
-    func displayError(_ errorString: String?) {
-        let alert = UIAlertController(title: "Error!", message: errorString, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
     @IBAction func logoutButton(_ sender: Any) {
         UdacityClient.sharedInstance().deleteSession { (success, error) in
             if (error != nil) {

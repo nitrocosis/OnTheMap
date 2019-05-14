@@ -70,12 +70,6 @@ class InformationPostingResultViewController: UIViewController, MKMapViewDelegat
         
         return pinView
     }
-    
-    private func displayError(_ errorString: String?) {
-        let alert = UIAlertController(title: "Error!", message: errorString, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
 }
 
 

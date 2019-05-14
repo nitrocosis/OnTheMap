@@ -16,8 +16,6 @@ struct User {
     init(firstName: String, lastName: String) {
         self.firstName = firstName
         self.lastName = lastName
-        // firstName = dictionary[UdacityConstants.JSONResponseKeys.firstName] as? String ?? ""
-        // lastName = dictionary[UdacityConstants.JSONResponseKeys.lastName] as? String ?? ""
     }
 }
 

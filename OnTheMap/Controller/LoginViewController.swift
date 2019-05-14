@@ -47,12 +47,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                                                   object: nil)
     }
     
-    private func displayError(_ errorString: String?) {
-        let alert = UIAlertController(title: "Error!", message: errorString, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
     private func login() {
         let controller = self.storyboard!.instantiateViewController(withIdentifier: "TabBarViewController")
         self.present(controller, animated: true, completion: nil)
