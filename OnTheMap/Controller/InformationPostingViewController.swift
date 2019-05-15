@@ -18,6 +18,11 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate {
     
     var resultAnnotation: MKPointAnnotation?
     
+    override func viewDidLoad() {
+        locationTextField.delegate = self
+        detailsTextField.delegate = self
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -92,6 +97,11 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate {
         if self.view.frame.origin.y != 0 {
             self.view.frame.origin.y = 0
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
