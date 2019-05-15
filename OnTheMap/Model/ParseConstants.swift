@@ -26,6 +26,10 @@ class ParseConstants {
         static let StudentLocations = "/StudentLocation"
     }
     
+    struct URLParameters {
+        static let getLocations: String = "?limit=100&order=-updatedAt"
+    }
+    
     struct JSONResponseKeys {
         static let ObjectID: String = "objectId"
         static let UniqueKey: String = "uniqueKey"

@@ -14,7 +14,7 @@ class ParseClient {
     
     //MARK: Get
     func taskForGetLocations(_ method: String, url: URL, completion: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
-        var request = URLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation?limit=100")!)
+        var request = URLRequest(url: URL(string: ParseConstants.URLConstants.BaseURL + ParseConstants.Methods.StudentLocations + ParseConstants.URLParameters.getLocations)!)
         request.httpMethod = "GET"
         request.addValue(ParseConstants.API.APP_ID, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(ParseConstants.API.RestAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
